@@ -4,12 +4,53 @@ import App from './App'
 import * as serviceWorker from './serviceWorker'
 import { BrowserRouter } from 'react-router-dom'
 import { CssBaseline } from '@material-ui/core'
+import {
+	ApolloClient,
+	ApolloProvider,
+	InMemoryCache,
+	gql,
+} from '@apollo/client'
+import { Query, Mutation, Subscription } from '@apollo/react-components'
+import { graphql } from '@apollo/react-hoc'
+
+// const cache = new InMemoryCache()
+// const link = new HttpLink({
+// 	uri: 'http://localhost:3004/graphql',
+// })
+
+// const client = new ApolloClient({
+// 	cache,
+// 	link,
+// })
+const client = new ApolloClient({
+	cache: new InMemoryCache(),
+	uri: 'http://localhost:3004/graphql',
+	headers: {
+		authorization: localStorage.getItem('token') || '',
+	},
+})
+client
+	.query({
+		query: gql`
+			{
+				users {
+					email
+					id
+					username
+				}
+			}
+		`,
+	})
+	.then((result) => console.log(result))
+	.catch((err) => console.log(err))
 
 ReactDOM.render(
-	<BrowserRouter>
-		<CssBaseline />
-		<App />
-	</BrowserRouter>,
+	<ApolloProvider client={client}>
+		<BrowserRouter>
+			<CssBaseline />
+			<App />
+		</BrowserRouter>
+	</ApolloProvider>,
 
 	document.getElementById('root'),
 )
