@@ -33,7 +33,7 @@ export default (props) => {
     }
     setOpen(false)
     setTimeout(() => {
-      localStorage.removeItem('token')
+      localStorage.removeItem('authorization')
     }, 700)
   }
   function handleListKeyDown(event) {
@@ -88,7 +88,7 @@ export default (props) => {
                   autoFocusItem={open}
                   id='menu-list-grow'
                   onKeyDown={handleListKeyDown}>
-                  {localStorage.getItem('token') ? (
+                  {localStorage.getItem('authorization') ? (
                     <div>
                       <MenuItem onClick={handleClose}>Profile</MenuItem>
                       <MenuItem onClick={handleClose}>My account</MenuItem>

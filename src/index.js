@@ -23,11 +23,11 @@ import { graphql } from '@apollo/react-hoc'
 // 	link,
 // })
 const client = new ApolloClient({
-	cache: new InMemoryCache(),
-	uri: 'http://localhost:3004/graphql',
-	headers: {
-		authorization: localStorage.getItem('token') || '',
-	},
+  cache: new InMemoryCache(),
+  uri: 'http://localhost:3004/graphql',
+  headers: {
+    authorization: localStorage.getItem('authorization') || '',
+  },
 })
 // client
 // 	.query({

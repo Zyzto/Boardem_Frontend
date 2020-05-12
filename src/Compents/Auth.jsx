@@ -55,7 +55,7 @@ export default (props) => {
         props.handleSnk('Logged In')
         props.handleClose(false)
         setTimeout(() => {
-          localStorage.setItem('token', data.data.login.token)
+          localStorage.setItem('authorization', data.data.login.token)
         }, 300)
       })
       .catch((err) => {
