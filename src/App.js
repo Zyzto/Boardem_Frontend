@@ -7,7 +7,8 @@ import { Typography, List, Divider, Snackbar } from '@material-ui/core'
 import {} from '@material-ui/icons'
 import { NavBar } from './Compents/NavBar'
 import { useQuery, gql } from '@apollo/client'
-import MuiAlert from '@material-ui/lab/Alert'
+import Alert from '@material-ui/lab/Alert'
+// import MuiAlert from '@material-ui/lab/Alert'
 
 const get_users = gql`
   {
@@ -17,13 +18,13 @@ const get_users = gql`
     }
   }
 `
-function Alert(props) {
-  return <MuiAlert elevation={6} variant='filled' {...props} />
-}
+// function Alert(props) {
+//   return <MuiAlert elevation={6} variant='filled' {...props} />
+// }
 
-function App() {
+export default () => {
   const classes = useStyles()
-  const { loading, error, data } = useQuery(get_users)
+  // const { loading, error, data } = useQuery(get_users)
   const [opnSnk, setopnSnk] = useState(false)
   const [snkMsg, setSnkMsg] = useState(false)
   const [snkType, setSnkType] = useState()
@@ -39,22 +40,20 @@ function App() {
     if (reason === 'clickaway') {
       return
     }
+    setSnkMsg()
     setopnSnk(false)
+    setTimeout(() => {
+      setSnkType()
+    }, 200)
   }
 
-  const errorHandling = () => {
-    if (loading) {
-      setopnSnk(true)
-      return (
-        <Alert onClose={handleClose} severity='info'>
-          Loading...
-        </Alert>
-      )
-    }
-  }
-  if (loading && !snkMsg) handleSnk('Loading...', 'info')
-  if (error && (!snkMsg || snkMsg === 'Loading...'))
-    handleSnk(error.message, 'error')
+  // if (loading && !snkMsg && !data) handleSnk('Loading...', 'info')
+  // if (data && snkMsg === 'Loading...')
+  //   setTimeout(() => {
+  //     handleClose()
+  //   }, 200)
+  // if (error && (!snkMsg || snkMsg === 'Loading...'))
+  //   handleSnk(error.message, 'error')
 
   return (
     <div className='App'>
@@ -64,11 +63,11 @@ function App() {
           content='minimum-scale=1, initial-scale=1, width=device-width'
         />
       </header>
-      <NavBar />
+      <NavBar handleSnk={handleSnk} />
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <List>
-          {data
+          {/* {data
             ? data.users.map((v, i) => (
                 <div key={i}>
                   <Typography>{v.id}</Typography>
@@ -76,7 +75,7 @@ function App() {
                   <Divider />
                 </div>
               ))
-            : null}
+            : null} */}
         </List>
 
         <Typography paragraph>
@@ -109,7 +108,10 @@ function App() {
           posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
       </main>
-      <Snackbar open={opnSnk} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+        open={opnSnk}
+        autoHideDuration={8000}
+        onClose={() => handleClose}>
         <Alert onClose={handleClose} severity={snkType}>
           {snkMsg}
         </Alert>
@@ -117,5 +119,3 @@ function App() {
     </div>
   )
 }
-
-export default App

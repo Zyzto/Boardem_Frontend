@@ -10,99 +10,186 @@ import {
   Grid,
   List,
   ListItem,
+  Snackbar,
 } from '@material-ui/core'
 import clsx from 'clsx'
 import useStyles from './Theme'
 import { gql, useQuery, useMutation } from '@apollo/client'
+import Alert from '@material-ui/lab/Alert'
 
 const registerQGL = gql`
-  mutation {
-    Register(username: String, email: String, password: String) {
+  mutation Register($username: String!, $email: String!, $password: String!) {
+    register(username: $username, email: $email, password: $password) {
       id
     }
   }
 `
 const loginQGL = gql`
-  mutation {
-    login(userInput: String, password: String) {
+  mutation Login($userInput: String!, $password: String!) {
+    login(userInput: $userInput, password: $password) {
       token
     }
   }
 `
-export default () => {
+export default (props) => {
   const [isReg, setIsReg] = useState(false)
-  const [inputField, setInputField] = useState()
+  const [inputField, setInputField] = useState({})
   const classes = useStyles()
-  const [regMut, regData] = useMutation(registerQGL)
-  const [logMut, logRes] = useMutation(loginQGL)
+  const [regMut] = useMutation(registerQGL)
+  const [logMut] = useMutation(loginQGL)
+  const [vali, setVali] = useState()
 
   const onChangeInput = ({ target: { name, value } }) => {
     setInputField({ ...inputField, [name]: value })
   }
 
   const loginHandler = async () => {
-    console.log('hello')
-    await logMut({ variables: { ...inputField } })
-    if (logRes.error) return console.log(logRes.error)
-    console.log(logRes.data)
+    console.log({ ...inputField })
+    await logMut({
+      variables: {
+        ...inputField,
+      },
+    })
+      .then((data) => {
+        console.log('DATA ', data.data.login.token)
+        props.handleSnk('Logged In')
+        props.handleClose(false)
+        setTimeout(() => {
+          localStorage.setItem('token', data.data.login.token)
+        }, 300)
+      })
+      .catch((err) => {
+        console.log('ERROR ', err)
+        props.handleSnk(`${err}`, 'error')
+      })
+    // if (ler) return console.log(ler)
+    // console.log(lda)
+  }
+  const registerHandler = async () => {
+    console.log({ ...inputField })
+    if (!inputField['username'])
+      return props.handleSnk('Username missing', 'error')
+    if (!inputField['password'])
+      return props.handleSnk('Passwords missing', 'error')
+    if (!inputField['email']) return props.handleSnk('Email missing', 'error')
+    if (inputField['password'] !== inputField['password-confirm'])
+      return props.handleSnk("Passwords aren't matched", 'error')
+    await regMut({
+      variables: {
+        ...inputField,
+      },
+    })
+      .then(async (data) => {
+        console.log('DATA ', data.data.register)
+        props.handleSnk('Successful Registered!')
+        setInputField({})
+        props.handleClose(false)
+        // setInputField({
+        //   userInput: inputField.username,
+        //   password: inputField.password,
+        // })
+        // console.log(inputField)
+        // loginHandler()
+      })
+      .catch((err) => {
+        console.log('ERROR ', err)
+        props.handleSnk(`${err}`, 'error')
+      })
+    // if (ler) return console.log(ler)
+    // console.log(lda)
   }
 
+  const switchToReg = () => {
+    setIsReg(true)
+    if (inputField.userInput)
+      setInputField({
+        username: inputField.userInput,
+      })
+    if (inputField.password)
+      setInputField({
+        password: inputField.password,
+      })
+  }
   console.log(inputField)
   return (
-    <List>
-      <FormControl>
-        <ListItem>
-          <TextField
-            label={isReg ? 'Username' : 'Username or Email'}
-            type='username'
-            name={isReg ? 'username' : 'userInput'}
-            onChange={(e) => onChangeInput(e)}></TextField>
-        </ListItem>
-        {isReg ? (
-          <>
-            <ListItem>
-              <TextField
-                label='Email'
-                type='email'
-                name='email'
-                onChange={(e) => onChangeInput(e)}></TextField>
-            </ListItem>
-          </>
-        ) : (
-          <></>
-        )}
-        <ListItem>
-          <TextField
-            label='Password'
-            type='password'
-            name='password'
-            onChange={(e) => onChangeInput(e)}></TextField>
-        </ListItem>
-        {isReg ? (
-          <>
-            <ListItem>
-              <TextField
-                label='Password Confirm'
-                type='password'
-                name='password-confirm'
-                onChange={(e) => onChangeInput(e)}></TextField>
-            </ListItem>
-          </>
-        ) : (
-          <>
-            <ListItem>
-              <Box display='flex' justifyContent='center'>
-                <Button p={1} onClick={() => loginHandler()}>
-                  Login
-                </Button>
-                <Button p={1} onClick={() => setIsReg(true)}>
-                  Register
-                </Button>
-              </Box>
-            </ListItem>
-          </>
-        )}
-      </FormControl>
-    </List>
+    <>
+      {isReg ? (
+        <>
+          <List>
+            <FormControl>
+              <ListItem>
+                <TextField
+                  label={'Username'}
+                  type='username'
+                  name={'username'}
+                  onChange={(e) => onChangeInput(e)}></TextField>
+              </ListItem>
+              <ListItem>
+                <TextField
+                  label='Password'
+                  type='password'
+                  name='password'
+                  onChange={(e) => onChangeInput(e)}></TextField>
+              </ListItem>
+              <ListItem>
+                <TextField
+                  label='Password Confirm'
+                  type='password'
+                  name='password-confirm'
+                  onChange={(e) => onChangeInput(e)}></TextField>
+              </ListItem>
+              <ListItem>
+                <TextField
+                  label='Email'
+                  type='email'
+                  name='email'
+                  onChange={(e) => onChangeInput(e)}></TextField>
+              </ListItem>
+              <ListItem>
+                <Box display='flex' justifyContent='center'>
+                  <Button p={1} onClick={() => setIsReg(false)}>
+                    Login
+                  </Button>
+                  <Button p={1} onClick={() => registerHandler()}>
+                    Register
+                  </Button>
+                </Box>
+              </ListItem>
+            </FormControl>
+          </List>
+        </>
+      ) : (
+        <>
+          <List>
+            <FormControl>
+              <ListItem>
+                <TextField
+                  label={'Username or Email'}
+                  type='username'
+                  name={'userInput'}
+                  onChange={(e) => onChangeInput(e)}></TextField>
+              </ListItem>
+              <ListItem>
+                <TextField
+                  label='Password'
+                  type='password'
+                  name='password'
+                  onChange={(e) => onChangeInput(e)}></TextField>
+              </ListItem>
+              <ListItem>
+                <Box display='flex' justifyContent='center'>
+                  <Button p={1} onClick={() => loginHandler()}>
+                    Login
+                  </Button>
+                  <Button p={1} onClick={() => switchToReg()}>
+                    Register
+                  </Button>
+                </Box>
+              </ListItem>
+            </FormControl>
+          </List>
+        </>
+      )}
+    </>
   )
 }

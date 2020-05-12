@@ -29,20 +29,20 @@ const client = new ApolloClient({
 		authorization: localStorage.getItem('token') || '',
 	},
 })
-client
-	.query({
-		query: gql`
-			{
-				users {
-					email
-					id
-					username
-				}
-			}
-		`,
-	})
-	.then((result) => console.log(result))
-	.catch((err) => console.log(err))
+// client
+// 	.query({
+// 		query: gql`
+// 			{
+// 				users {
+// 					email
+// 					id
+// 					username
+// 				}
+// 			}
+// 		`,
+// 	})
+// 	.then((result) => console.log(result))
+// 	.catch((err) => console.log(err))
 
 ReactDOM.render(
 	<ApolloProvider client={client}>

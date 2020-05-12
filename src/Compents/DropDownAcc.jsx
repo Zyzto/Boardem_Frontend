@@ -14,7 +14,7 @@ import { AccountCircle } from '@material-ui/icons'
 import Auth from './Auth'
 import useStyles from './Theme'
 
-export default () => {
+export default (props) => {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const anchorRef = useRef(null)
@@ -26,6 +26,15 @@ export default () => {
       return
     }
     setOpen(false)
+  }
+  const handleCloseLogin = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return
+    }
+    setOpen(false)
+    setTimeout(() => {
+      localStorage.removeItem('token')
+    }, 700)
   }
   function handleListKeyDown(event) {
     if (event.key === 'Tab') {
@@ -71,7 +80,7 @@ export default () => {
             {...TransitionProps}
             style={{
               transformOrigin:
-                placement === 'bottom' ? 'center top' : 'center bottom',
+                placement === 'bottom' ? 'center bottom' : 'center top',
             }}>
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
@@ -80,13 +89,13 @@ export default () => {
                   id='menu-list-grow'
                   onKeyDown={handleListKeyDown}>
                   {localStorage.getItem('token') ? (
-                    <>
+                    <div>
                       <MenuItem onClick={handleClose}>Profile</MenuItem>
                       <MenuItem onClick={handleClose}>My account</MenuItem>
-                      <MenuItem onClick={handleClose}>Logout</MenuItem>
-                    </>
+                      <MenuItem onClick={handleCloseLogin}>Logout</MenuItem>
+                    </div>
                   ) : (
-                    <Auth />
+                    <Auth handleClose={setOpen} handleSnk={props.handleSnk} />
                   )}
                 </MenuList>
               </ClickAwayListener>

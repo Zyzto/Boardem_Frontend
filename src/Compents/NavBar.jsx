@@ -34,7 +34,7 @@ import React, { useState } from 'react'
 import Auth from './Auth'
 import DropDownAcc from './DropDownAcc'
 
-export const NavBar = () => {
+export const NavBar = (props) => {
   const classes = useStyles()
   const theme = useTheme()
   const [open, setOpen] = useState(false)
@@ -76,7 +76,7 @@ export const NavBar = () => {
           <Typography variant='h6' noWrap className={classes.root}>
             Boardem
           </Typography>
-          <DropDownAcc />
+          <DropDownAcc handleSnk={props.handleSnk} />
         </Toolbar>
       </AppBar>
       <Drawer
