@@ -13,6 +13,9 @@ import {
 import { AccountCircle } from '@material-ui/icons'
 import Auth from './Auth'
 import useStyles from './Theme'
+import { Link } from 'react-router-dom'
+
+
 
 export default (props) => {
   const classes = useStyles()
@@ -91,7 +94,12 @@ export default (props) => {
                   {localStorage.getItem('authorization') ? (
                     <div>
                       <MenuItem onClick={handleClose}>Profile</MenuItem>
-                      <MenuItem onClick={handleClose}>My account</MenuItem>
+                      <MenuItem
+                        onClick={handleClose}
+                        component={Link}
+                        to={'/account'}>
+                        My Account
+                      </MenuItem>
                       <MenuItem onClick={handleCloseLogin}>Logout</MenuItem>
                     </div>
                   ) : (

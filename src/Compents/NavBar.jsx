@@ -33,6 +33,7 @@ import useStyles from './Theme'
 import React, { useState } from 'react'
 import Auth from './Auth'
 import DropDownAcc from './DropDownAcc'
+import { Link } from 'react-router-dom'
 
 export const NavBar = (props) => {
   const classes = useStyles()
@@ -73,7 +74,13 @@ export const NavBar = (props) => {
             })}>
             <MenuIcon />
           </IconButton>
-          <Typography variant='h6' noWrap className={classes.root}>
+          <Typography
+            style={{ textDecoration: 'none', color: 'white' }}
+            component={Link}
+            to='/'
+            variant='h6'
+            noWrap
+            className={classes.root}>
             Boardem
           </Typography>
           <DropDownAcc handleSnk={props.handleSnk} />
