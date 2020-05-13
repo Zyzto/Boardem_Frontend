@@ -72,6 +72,21 @@ const useStyles = makeStyles((theme) => ({
   marginAutoItem: {
     margin: 'auto',
   },
+  media: {
+    height: 250,
+  },
+  cardRoot: {
+    maxWidth: 400,
+    minWidth: 200,
+    height: 430,
+  },
+  margin: {
+    margin: theme.spacing(1),
+  },
+  accountField: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
 }))
 
 export default useStyles
