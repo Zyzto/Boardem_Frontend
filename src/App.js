@@ -3,11 +3,23 @@ import clsx from 'clsx'
 import useStyles from './Compents/Theme'
 import './App.css'
 import { spacing } from '@material-ui/system'
-import { Typography, List, Divider, Snackbar } from '@material-ui/core'
+import {
+  Typography,
+  List,
+  Divider,
+  Snackbar,
+  Grid,
+  Container,
+} from '@material-ui/core'
 import {} from '@material-ui/icons'
 import { NavBar } from './Compents/NavBar'
 import { useQuery, gql } from '@apollo/client'
 import Alert from '@material-ui/lab/Alert'
+import HomeGQL from './Compents/HomeGQL'
+import { Route, Switch } from 'react-router-dom'
+import Account from './Compents/Account'
+import RoomNew from './Compents/RoomNew'
+import RoomBrowse from './Compents/RoomBrowse'
 // import MuiAlert from '@material-ui/lab/Alert'
 
 const get_users = gql`
@@ -65,9 +77,26 @@ export default () => {
       </header>
       <NavBar handleSnk={handleSnk} />
       <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <List>
-          {/* {data
+        <Container maxWidth='sm' className={classes.toolbar} />
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path='/account'>
+            <Account handleSnk={handleSnk} />
+          </Route>
+          <Route path='/room/new/:id'>
+            <RoomNew handleSnk={handleSnk} />
+          </Route>
+          <Route exact path='/room/browse/:game'>
+            <RoomBrowse handleSnk={handleSnk} />
+          </Route>
+          <Route exact path='/'>
+            <HomeGQL />
+          </Route>
+        </Switch>
+
+        {/* <List>
+          {data
             ? data.users.map((v, i) => (
                 <div key={i}>
                   <Typography>{v.id}</Typography>
@@ -75,43 +104,10 @@ export default () => {
                   <Divider />
                 </div>
               ))
-            : null} */}
-        </List>
-
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+            : null}
+        </List> */}
       </main>
-      <Snackbar
-        open={opnSnk}
-        autoHideDuration={8000}
-        onClose={() => handleClose}>
+      <Snackbar open={opnSnk} autoHideDuration={8000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={snkType}>
           {snkMsg}
         </Alert>
