@@ -51,6 +51,8 @@ export default (props) => {
                     alignItems: 'center',
                     padding: '2%',
                     width: '100%',
+                    textDecoration: 'none',
+                    color: 'black',
                   }}>
                   <Grid
                     container

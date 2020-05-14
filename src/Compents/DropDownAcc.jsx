@@ -13,11 +13,10 @@ import {
 import { AccountCircle } from '@material-ui/icons'
 import Auth from './Auth'
 import useStyles from './Theme'
-import { Link } from 'react-router-dom'
-
-
+import { Link, useHistory } from 'react-router-dom'
 
 export default (props) => {
+  const history = useHistory()
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const anchorRef = useRef(null)
@@ -69,6 +68,7 @@ export default (props) => {
         transition
         placement='bottom-end'
         disablePortal={false}
+        className={classes.dropDownZ}
         modifiers={{
           flip: {
             enabled: true,
@@ -100,7 +100,13 @@ export default (props) => {
                         to={'/account'}>
                         My Account
                       </MenuItem>
-                      <MenuItem onClick={handleCloseLogin}>Logout</MenuItem>
+                      <MenuItem
+                        onClick={(e) => {
+                          handleCloseLogin(e)
+                          history.push('/')
+                        }}>
+                        Logout
+                      </MenuItem>
                     </div>
                   ) : (
                     <Auth handleClose={setOpen} handleSnk={props.handleSnk} />

@@ -1,6 +1,8 @@
 import { makeStyles } from '@material-ui/core'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 const drawerWidth = 240
+const chatWidth = '21%'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -87,6 +89,19 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
   },
+  chat: {
+    width: chatWidth,
+    flexShrink: 0,
+  },
+  chatPaper: {
+    width: chatWidth,
+  },
+  chatContainer: {
+    overflow: 'auto',
+  },
+  dropDownZ: {
+    zIndex:1500
+  }
 }))
 
 export default useStyles

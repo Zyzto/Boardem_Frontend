@@ -20,6 +20,7 @@ import { Route, Switch } from 'react-router-dom'
 import Account from './Compents/Account'
 import RoomNew from './Compents/RoomNew'
 import RoomBrowse from './Compents/RoomBrowse'
+import RoomGame from './Compents/RoomGame'
 // import MuiAlert from '@material-ui/lab/Alert'
 
 const get_users = gql`
@@ -86,6 +87,9 @@ export default () => {
           </Route>
           <Route path='/room/new/:id'>
             <RoomNew handleSnk={handleSnk} />
+          </Route>
+          <Route exact path='/room/join/:id'>
+            <RoomGame handleSnk={handleSnk} />
           </Route>
           <Route exact path='/room/browse/:game'>
             <RoomBrowse handleSnk={handleSnk} />
