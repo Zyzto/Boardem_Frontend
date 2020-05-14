@@ -1,21 +1,14 @@
 import React, { useState } from 'react'
 import {
-  Card,
   FormControl,
-  Input,
   TextField,
   Box,
-  Divider,
   Button,
-  Grid,
   List,
   ListItem,
-  Snackbar,
 } from '@material-ui/core'
-import clsx from 'clsx'
-import useStyles from './Theme'
-import { gql, useQuery, useMutation } from '@apollo/client'
-import Alert from '@material-ui/lab/Alert'
+import useStyles from '../Theme/Theme'
+import { gql, useMutation } from '@apollo/client'
 
 const registerQGL = gql`
   mutation Register($username: String!, $email: String!, $password: String!) {
@@ -34,10 +27,9 @@ const loginQGL = gql`
 export default (props) => {
   const [isReg, setIsReg] = useState(false)
   const [inputField, setInputField] = useState({})
-  const classes = useStyles()
   const [regMut] = useMutation(registerQGL)
   const [logMut] = useMutation(loginQGL)
-  const [vali, setVali] = useState()
+  const [] = useState()
 
   const onChangeInput = ({ target: { name, value } }) => {
     setInputField({ ...inputField, [name]: value })

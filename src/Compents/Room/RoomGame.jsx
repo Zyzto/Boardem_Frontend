@@ -4,16 +4,13 @@ import {
   Toolbar,
   List,
   ListItem,
-  ListItemIcon,
-  ListItemText,
-  Divider,
   Box,
   TextField,
   IconButton,
   CircularProgress,
   Paper,
 } from '@material-ui/core'
-import useStyles from './Theme'
+import useStyles from '../Theme/Theme'
 import { ArrowForward } from '@material-ui/icons'
 import { gql, useQuery, useMutation, useSubscription } from '@apollo/client'
 import JwtDecode from 'jwt-decode'
@@ -52,12 +49,7 @@ const MESSAGES_SEND = gql`
 
 export default (props) => {
   const { id } = useParams()
-  const { loading, error, data } = useQuery(MESSAGES_GET, {
-    variables: {
-      id,
-    },
-  })
-  const sub = useSubscription(MESSAGES_SUBSCRIPTION, {
+  const { data } = useQuery(MESSAGES_GET, {
     variables: {
       id,
     },
@@ -77,7 +69,7 @@ export default (props) => {
   const sendMsg = () => {
     // console.log('send', inputField)
     msgMut({ variables: { ...inputField } })
-      .then((res) => {
+      .then(() => {
         // console.log('REEEEEEEEEEEEES', res)
         setInputField({ ...inputField, body: '' })
         return props.handleSnk('Message sent')

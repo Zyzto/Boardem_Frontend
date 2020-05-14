@@ -8,14 +8,7 @@ import {
   ApolloClient,
   ApolloProvider,
   InMemoryCache,
-  gql,
-  split,
-  HttpLink,
 } from '@apollo/client'
-import { getMainDefinition } from '@apollo/client/utilities'
-import { WebSocketLink } from '@apollo/link-ws'
-import { Query, Mutation, Subscription } from '@apollo/react-components'
-import { graphql } from '@apollo/react-hoc'
 
 // const cache = new InMemoryCache()
 // const link = new HttpLink({
@@ -57,7 +50,7 @@ import { graphql } from '@apollo/react-hoc'
 // )
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  //   uri: 'http://localhost:3004/graphql',
+    // uri: 'http://localhost:3004/graphql',
   uri: 'https://gql-ziad.herokuapp.com/graphql',
   headers: {
     authorization: localStorage.getItem('authorization') || '',

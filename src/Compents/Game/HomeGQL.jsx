@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery, gql } from '@apollo/client'
 import GameCard from './GameCard'
 import { CircularProgress, Grid, Box } from '@material-ui/core'
-import useStyles from './Theme'
+import useStyles from '../Theme/Theme'
 
 const get_games = gql`
   {

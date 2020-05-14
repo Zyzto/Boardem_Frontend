@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 import Auth from './Auth'
-import useStyles from './Theme'
+import useStyles from '../Theme/Theme'
 import { Link, useHistory } from 'react-router-dom'
 
 export default (props) => {

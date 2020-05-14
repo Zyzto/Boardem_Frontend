@@ -7,9 +7,9 @@ import {
   FormControl,
   List,
 } from '@material-ui/core'
-import useStyles from './Theme'
+import useStyles from '../Theme/Theme'
 import { gql, useMutation } from '@apollo/client'
-import Dia from './Dia'
+import Dia from '../Helper/Dia'
 import { useHistory } from 'react-router-dom'
 
 const editGQL = gql`

@@ -11,16 +11,11 @@ import {
   ListItem,
   List,
   Divider,
-  Button,
-  MenuItem,
-  Menu,
   Box,
 } from '@material-ui/core'
 import {
   ChevronRight,
   ChevronLeft,
-  Inbox,
-  Mail,
   AccountCircle,
   AddCircle,
   Search,
@@ -28,10 +23,9 @@ import {
   Help,
 } from '@material-ui/icons'
 import MenuIcon from '@material-ui/icons/Menu'
-import useStyles from './Theme'
+import useStyles from '../Theme/Theme'
 
 import React, { useState } from 'react'
-import Auth from './Auth'
 import DropDownAcc from './DropDownAcc'
 import { Link } from 'react-router-dom'
 
@@ -39,7 +33,7 @@ export const NavBar = (props) => {
   const classes = useStyles()
   const theme = useTheme()
   const [open, setOpen] = useState(false)
-  const [anchorEl, setAnchorEl] = useState(null)
+  // const [, setAnchorEl] = useState(null)
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -49,13 +43,7 @@ export const NavBar = (props) => {
     setOpen(false)
   }
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
 
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
   return (
     <>
       <AppBar
