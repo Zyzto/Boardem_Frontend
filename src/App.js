@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import clsx from 'clsx'
-import useStyles from './Compents/Theme'
+import useStyles from './Compents/c/Theme'
 import './App.css'
 import { spacing } from '@material-ui/system'
 import {
@@ -12,15 +12,15 @@ import {
   Container,
 } from '@material-ui/core'
 import {} from '@material-ui/icons'
-import { NavBar } from './Compents/NavBar'
+import { NavBar } from './Compents/c/NavBar'
 import { useQuery, gql } from '@apollo/client'
 import Alert from '@material-ui/lab/Alert'
-import HomeGQL from './Compents/HomeGQL'
+import HomeGQL from './Compents/c/HomeGQL'
 import { Route, Switch } from 'react-router-dom'
-import Account from './Compents/Account'
-import RoomNew from './Compents/RoomNew'
-import RoomBrowse from './Compents/RoomBrowse'
-import RoomGame from './Compents/RoomGame'
+import Account from './Compents/c/Account'
+import RoomNew from './Compents/c/RoomNew'
+import RoomBrowse from './Compents/c/RoomBrowse'
+import RoomGame from './Compents/c/RoomGame'
 // import MuiAlert from '@material-ui/lab/Alert'
 
 const get_users = gql`
