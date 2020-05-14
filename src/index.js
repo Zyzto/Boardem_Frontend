@@ -57,11 +57,12 @@ import { graphql } from '@apollo/react-hoc'
 // )
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  uri: 'http://localhost:3004/graphql',
+  //   uri: 'http://localhost:3004/graphql',
+  uri: 'https://gql-ziad.herokuapp.com/graphql',
   headers: {
     authorization: localStorage.getItem('authorization') || '',
   },
-//   link: splitLink,
+  //   link: splitLink,
 })
 
 
