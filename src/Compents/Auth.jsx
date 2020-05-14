@@ -44,14 +44,14 @@ export default (props) => {
   }
 
   const loginHandler = async () => {
-    console.log({ ...inputField })
+    // console.log({ ...inputField })
     await logMut({
       variables: {
         ...inputField,
       },
     })
       .then((data) => {
-        console.log('DATA ', data.data.login.token)
+        // console.log('DATA ', data.data.login.token)
         props.handleSnk('Logged In')
         props.handleClose(false)
         setTimeout(() => {
@@ -66,7 +66,7 @@ export default (props) => {
     // console.log(lda)
   }
   const registerHandler = async () => {
-    console.log({ ...inputField })
+    // console.log({ ...inputField })
     if (!inputField['username'])
       return props.handleSnk('Username missing', 'error')
     if (!inputField['password'])
@@ -110,7 +110,7 @@ export default (props) => {
         password: inputField.password,
       })
   }
-  console.log(inputField)
+  // console.log(inputField)
   return (
     <>
       {isReg ? (

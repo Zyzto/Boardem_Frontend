@@ -62,11 +62,11 @@ export default (props) => {
       id,
     },
   })
-  if (sub.loading) console.log('SUBBBBBB')
-  if (sub.data) console.log('SUBBBBBB', sub.data)
-  if (sub.error) console.log('SUBBBBBB', sub.error)
+//   if (sub.loading) console.log('SUBBBBBB')
+//   if (sub.data) console.log('SUBBBBBB', sub.data)
+//   if (sub.error) console.log('SUBBBBBB', sub.error)
   const [msgMut] = useMutation(MESSAGES_SEND)
-  if (data) console.log('DATA', data)
+//   if (data) console.log('DATA', data)
   const classes = useStyles()
   const [inputField, setInputField] = useState({
     body: '',
@@ -75,10 +75,10 @@ export default (props) => {
     setInputField({ ...inputField, [name]: value })
   }
   const sendMsg = () => {
-    console.log('send', inputField)
+    // console.log('send', inputField)
     msgMut({ variables: { ...inputField } })
       .then((res) => {
-        console.log('REEEEEEEEEEEEES', res)
+        // console.log('REEEEEEEEEEEEES', res)
         setInputField({ ...inputField, body: '' })
         return props.handleSnk('Message sent')
       })
@@ -96,7 +96,7 @@ export default (props) => {
         id,
       })
 
-    console.log(inputField)
+    // console.log(inputField)
   })
 
   return (

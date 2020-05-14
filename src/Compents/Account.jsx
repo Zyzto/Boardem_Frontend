@@ -46,7 +46,7 @@ export default (props) => {
   }
   const [inputField, setInputField] = useState({})
   const editHandler = async () => {
-    console.log({ ...inputField })
+    // console.log({ ...inputField })
     if (!inputField['password'])
       return props.handleSnk('Password missing', 'error')
     if (inputField['newPassword'] !== inputField['password-confirm'])
@@ -58,7 +58,7 @@ export default (props) => {
       },
     })
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         return props.handleSnk(`User information has been updated`)
       })
       .catch((err) => {

@@ -35,7 +35,7 @@ export default (props) => {
       game,
     },
   })
-  if (data) console.log(data)
+  // if (data) console.log(data)
   return (
     <>
       <List>
