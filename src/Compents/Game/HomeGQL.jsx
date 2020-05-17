@@ -20,7 +20,7 @@ export default () => {
   const { loading, error, data } = useQuery(get_games)
   const classes = useStyles()
   if (loading) return <CircularProgress />
-  if (error) return <>ERROR {error}</>
+  if (error) return <>ERROR</>
   return (
     <Grid container spacing={2} justify='center' alignContent='center'>
       {data.games.map((v, i) => {

@@ -1,13 +1,9 @@
 import React, { useState } from 'react'
 import useStyles from './Compents/Theme/Theme'
 import './App.css'
-import {
-  Snackbar,
-  Container,
-} from '@material-ui/core'
+import { Snackbar, Container } from '@material-ui/core'
 import {} from '@material-ui/icons'
 import { NavBar } from './Compents/NavBar/NavBar'
-import { gql } from '@apollo/client'
 import Alert from '@material-ui/lab/Alert'
 import HomeGQL from './Compents/Game/HomeGQL'
 import { Route, Switch } from 'react-router-dom'
@@ -63,8 +59,6 @@ export default () => {
       <NavBar handleSnk={handleSnk} />
       <main className={classes.content}>
         <Container maxWidth='sm' className={classes.toolbar} />
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         <Switch>
           <Route path='/account'>
             <Account handleSnk={handleSnk} />
@@ -82,18 +76,6 @@ export default () => {
             <HomeGQL />
           </Route>
         </Switch>
-
-        {/* <List>
-          {data
-            ? data.users.map((v, i) => (
-                <div key={i}>
-                  <Typography>{v.id}</Typography>
-                  <Typography>{v.isAdmin}</Typography>
-                  <Divider />
-                </div>
-              ))
-            : null}
-        </List> */}
       </main>
       <Snackbar open={opnSnk} autoHideDuration={8000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={snkType}>

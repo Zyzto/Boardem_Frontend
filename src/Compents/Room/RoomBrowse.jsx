@@ -36,6 +36,7 @@ export default (props) => {
     },
   })
   // if (data) console.log(data)
+  if (error) return <>ERROR</>
   return (
     <>
       <List>
